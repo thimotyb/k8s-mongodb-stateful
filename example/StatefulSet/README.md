@@ -72,6 +72,7 @@ mongo-persistent-storage-mongo-2   Bound     pvc-af8f1d24-d3ab-11e6-8cf2-42010af
 
 ## Connecting to the MongoDB Replica Set
 
+Each pod in a StatefulSet backed by a Headless Service will have a stable DNS name. The template follows this format: <pod-name>.<service-name>
 Each MongoDB Replica Set will have its own DNS address. This will take the format `<pod-name>.<service-name>`.
 
 For our example, the DNS addresses to use will be:
@@ -87,3 +88,36 @@ Put these in your connection url. For example:
 ```
 mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/dbname_?'
 ```
+
+Connect to the first replica set member:
+
+kubectl exec -ti mongo-0 -- mongosh
+
+You now have a REPL environment connected to the MongoDB.
+
+Let's instantiate the replica set with a default configuration by running the rs.initiate() command:
+
+rs.initiate()
+
+Print the replica set configuration; run the rs.conf() command:
+
+rs.conf()
+
+This outputs the details for the current member of replica set rs0. In this lab you see only one member.
+
+Type "exit" and press enter to quit the REPL.
+
+-----
+
+### Scaling the MongoDB replica set
+
+A big advantage of Kubernetes and StatefulSets is that you can scale the number of MongoDB Replicas up and down with a single command!
+
+To scale up the number of replica set members from 3 to 5, run this command:
+
+kubectl scale --replicas=5 statefulset mongo
+
+In a few minutes, there will be 5 MongoDB pods.
+
+
+
