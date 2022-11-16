@@ -12,3 +12,33 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/tmp/mongodb" #changed
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-persistent-storage-1 #changed
+  namespace: default #added
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 100Gi #changed
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/tmp/mongodb-1" #changed
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-persistent-storage-2 #changed
+  namespace: default #added
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 100Gi #changed
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/tmp/mongodb-2" #changed
