@@ -64,8 +64,9 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: mongo-persistent-storage
-      annotations:
-        volume.beta.kubernetes.io/storage-class: "fast"
+ # Uncomment this to use storageclass e.g. on GCP
+ #     annotations:
+ #       volume.beta.kubernetes.io/storage-class: "fast"
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
