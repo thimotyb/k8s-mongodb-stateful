@@ -47,7 +47,8 @@ spec:
           image: mongo
           command:
             - mongod
-#            - "--bind_ip 0.0.0.0"
+            - "--bind_ip"
+            - 0.0.0.0
             - "--replSet"
             - rs0
 #            - "--smallfiles"
